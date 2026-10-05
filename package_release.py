@@ -43,7 +43,7 @@ def package(source_dist: Path, output_dir: Path, replace: bool = False) -> Path:
 
     icon_dir = ROOT_DIR / "Icone"
     if icon_dir.is_dir():
-        shutil.copytree(icon_dir, output_dir / "Icone")
+        shutil.copytree(icon_dir, output_dir / "Icone", dirs_exist_ok=True)
 
     launcher = output_dir / f"Lancer_{APP_BASE_NAME}.bat"
     launcher.write_text(
