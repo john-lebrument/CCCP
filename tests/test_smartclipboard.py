@@ -1,4 +1,3 @@
-import os
 import json
 import tempfile
 import unittest
@@ -6,6 +5,8 @@ from pathlib import Path
 
 from app.storage import StorageManager
 from app.win_hooks import parse_shortcut, MOD_CONTROL, MOD_ALT, MOD_SHIFT, MOD_NOREPEAT
+from app.copyq_importer import _extract_text_and_title
+from package_release import package
 
 
 class TestSmartClipboard(unittest.TestCase):
@@ -213,19 +214,30 @@ class TestSmartClipboard(unittest.TestCase):
         self.assertIn("Dossier 1 > Sous-dossier", folder_paths)
         self.assertIn("Dossier 2", folder_paths)
 
-    def test_copyq_import_real_file(self):
-        cpq_file = Path(r"C:\Data\script\Copier_Coller Gemini\import\1.cpq")
-        if cpq_file.exists():
-            new_data_file = Path(self.temp_dir.name) / "copyq_imported.json"
-            new_storage = StorageManager(data_file=new_data_file)
-            stats = new_storage.import_copyq_data(str(cpq_file), merge=False)
-            self.assertEqual(stats["folders"], 7)
-            self.assertGreater(stats["snippets"], 30)
-            self.assertGreater(stats["history"], 200)
-            # Verify specific tab and snippet
-            lime_folder = [f for f in new_storage.snippets if f["name"] == "LimeSurvey"]
-            self.assertEqual(len(lime_folder), 1)
-            self.assertGreater(len(lime_folder[0]["children"]), 0)
+    def test_copyq_plain_text_extraction(self):
+        title, content = _extract_text_and_title({
+            "2": b"Salutation",
+            "4": "Bonjour,\nComment allez-vous ?".encode("utf-8"),
+        })
+        self.assertEqual(title, "Salutation")
+        self.assertEqual(content, "Bonjour,\nComment allez-vous ?")
+
+    def test_release_package_never_copies_local_user_data(self):
+        source_dist = Path(self.temp_dir.name) / "build"
+        source_dist.mkdir()
+        (source_dist / "cccp_1.3.exe").write_bytes(b"test executable")
+        user_data = source_dist / "data"
+        user_data.mkdir()
+        (user_data / "clipboard_data.json").write_text(
+            '{"history": [{"content": "private clipboard text"}]}',
+            encoding="utf-8",
+        )
+
+        output = Path(self.temp_dir.name) / "package"
+        package(source_dist, output)
+
+        self.assertTrue((output / "cccp_1.3.exe").is_file())
+        self.assertFalse((output / "data" / "clipboard_data.json").exists())
 
 
 if __name__ == "__main__":
