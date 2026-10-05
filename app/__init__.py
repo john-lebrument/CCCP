@@ -1,0 +1,1 @@
+"""SmartClipboard Application Package."""
