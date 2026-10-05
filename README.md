@@ -32,9 +32,12 @@ Application Windows portable de gestion intelligente et persistante du presse-pa
    - Historique paramétrable (10 à 500 éléments).
    - Clic droit sur l'historique > *📁 Déposer dans un dossier...* pour classer directement un texte copié dans l'arborescence.
 
-7. **Portabilité Totale & Sauvegarde** :
-   - Données autonomes dans le dossier `data/`.
+7. **Portabilité & sauvegarde** :
+   - Données locales autonomes dans `data/` (historique du presse-papier et extraits).
    - Export/Import JSON et compatibilité d'import CopyQ (`.cpq`).
+   - Les données locales ne sont jamais incluses dans les archives de distribution.
+
+> **Confidentialité :** CCCP enregistre localement l'historique du presse-papier et les extraits dans `data/clipboard_data.json`. Ce fichier est ignoré par Git et exclu des paquets portables publiés. Il est créé avec des valeurs par défaut au premier lancement.
 
 ---
 
