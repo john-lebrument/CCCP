@@ -8,7 +8,7 @@ Application Windows portable de gestion intelligente et persistante du presse-pa
 
 ## 📥 Téléchargement Direct (Version Portable Autonome)
 
-👉 **[Télécharger CCCP v1.3 Portable (.ZIP)](https://github.com/john-lebrument/CCCP/releases/download/v1.3/CCCP_v1.3_Portable.zip)** *(Prêt à l'emploi, aucun installateur requis)*
+👉 **[Télécharger l’archive portable assainie (v1.3.1)](https://github.com/john-lebrument/CCCP/releases/download/v1.3.1/CCCP_v1.3.1_Portable.zip)** *(prête à l’emploi, sans installateur ; données personnelles exclues)*
 
 1. Téléchargez et décompressez l'archive ZIP sur votre ordinateur ou clé USB.
 2. Double-cliquez sur `cccp_1.3.exe` (ou `Lancer_cccp.bat`).
