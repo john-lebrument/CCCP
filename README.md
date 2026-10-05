@@ -2,6 +2,8 @@
 
 Application Windows portable de gestion intelligente et persistante du presse-papier et d'extraits textuels avec arborescence, raccourcis clavier globaux et menu flottant déclenchable au curseur (souris ou clavier).
 
+![Capture d’écran de CCCP — arborescence des extraits](docs/screenshot.jpg)
+
 ---
 
 ## 📥 Téléchargement Direct (Version Portable Autonome)
